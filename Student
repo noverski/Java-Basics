@@ -1,0 +1,376 @@
+
+package ict167_assignment_2;
+
+
+import java.io.PrintWriter;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
+
+
+
+public class Student 
+{
+    public static String studentTitle; // Title of the student
+    public static String firstName; // First name of the student
+    public static String lastName ; // Last name of the student
+    public static int studentID; // 8 digit student ID number
+    public static int studentDOB; // Date of Birth (DDMMYYYY)
+    public static int assignment1; // Assignment 1 Marks
+    public static int assignment2; // Assignment 2 Marks
+    public static int assignment3; // Assignment 3 Marks
+    public static int practicalMark; // Weekly practical mark
+    public static int finalExamMark; // Final Examiniation Mark
+    public static int overallfinalMark; // Final Examiniation Mark
+    public static int gradeAvg;
+    public static int Total;
+    public static int assignmentGrade; //grade of all 3 assignments
+    public static int practicalGrade; // Weekly practical grade
+    public static int finalExamGrade; // Final Examiniation grade
+    
+    //================================================================================// 
+    // Step by step process to enter Student Details                                                           //
+    //Statues ->  Working                                                             //
+    //================================================================================//    
+    public static void EnterDetails()
+     {
+         //use this method to follow sequence
+         studentDetails(); // to enter student details
+         Student ofm = new Student();
+         ofm.overallFinalMark ();
+         Student PR = new Student();
+         PR.printstudentDetails(); // to print the results of the studens
+     }
+    
+
+    //================================================================================// 
+    //Enter Student Details                                                           //
+    //Statues ->  Working                                                             //
+    //================================================================================// 
+    public static void studentDetails()
+     {
+        PrintWriter writer = null;
+        Scanner keyboard = new Scanner(System.in);
+        
+        try
+        {
+            writer = new PrintWriter(new FileOutputStream("StudentData.txt", true)); // will check if the file exsist first 
+        
+            //instructions on what is to be done
+            System.out.println("Please enter the following details");
+            System.out.println("***********************Student Details***********************"); // For Spacing purpose
+            
+            //Key in the student's details
+            System.out.println("Student ID (8 Digit):");// store as integer
+            if(keyboard.hasNextLine())
+            {
+                String line = keyboard.nextLine();
+                writer.println(line);
+                studentID = Integer.parseInt(line); //to convert string to int
+            }
+
+            System.out.println("Title of the student (eg, Mr, Miss, Ms, Mrs etc:)");
+            studentTitle = keyboard.nextLine();
+            writer.println(studentTitle);
+            
+            System.out.println("First Name / Given Name:");
+            firstName = keyboard.nextLine();
+            writer.println(firstName);
+
+            System.out.println("Last Name / Family Name /Surname:");
+            lastName = keyboard.nextLine();
+            writer.println(lastName);
+
+            System.out.println("Date of Birth (DDMMYYYY):"); // store as integer
+            if(keyboard.hasNextLine())
+            {
+                String line = keyboard.nextLine();
+                writer.println(line);
+                studentDOB = Integer.parseInt(line); //to convert string to int
+            }
+
+            //----------------------------------------------------------------------//
+            System.out.println(""); // For Spacing purpose
+            //----------------------------------------------------------------------//
+            
+            //Print of the assignment marks
+            System.out.println("************************Assignments************************"); // For Spacing purpose
+            System.out.println("The following is the marks of the 3 assignments");
+            System.out.println("Each marked out of maximum of 100 marks");
+            System.out.println("Assignment 1 Marks : ");
+            if(keyboard.hasNextLine())
+            {
+                String line = keyboard.nextLine();
+                writer.println(line);
+                assignment1 = Integer.parseInt(line); //to convert string to int
+            }
+           
+            System.out.println("Assignment 2 Marks : ");
+            if(keyboard.hasNextLine())
+            {
+                String line = keyboard.nextLine();
+                writer.println(line);
+                assignment2 = Integer.parseInt(line); //to convert string to int
+            }
+
+            System.out.println("Assignment 3 Marks : ");
+            if(keyboard.hasNextLine())
+            {
+                String line = keyboard.nextLine();
+                writer.println(line);
+                assignment3 = Integer.parseInt(line); //to convert string to int
+            }
+            
+            //----------------------------------------------------------------------//
+            System.out.println(""); // For Spacing purpose
+            //----------------------------------------------------------------------//
+            
+            // Print of results of the Weekly Practical Work
+            System.out.println("******************Weekly practical work********************");
+            System.out.println("The marks for this component are recorded as a total ");
+            System.out.println("mark obtained (out of a maximum of 10 marks) for all ");
+            System.out.println("practical work demonstrated during the semester");
+            System.out.println("Weekly practical work : ");
+            if(keyboard.hasNextLine())
+            {
+                String line = keyboard.nextLine();
+                writer.println(line);
+                practicalMark = Integer.parseInt(line); //to convert string to int
+            }
+
+            //----------------------------------------------------------------------//
+            System.out.println(""); // For Spacing purpose
+            //----------------------------------------------------------------------//
+            // Print of the details
+            System.out.println("*****************Final Examination Mark*******************");
+            System.out.println("Final Examination Mark : ");
+            if(keyboard.hasNextLine())
+            {
+                String line = keyboard.nextLine();
+                writer.println(line);
+                finalExamMark = Integer.parseInt(line); //to convert string to int
+            }
+            
+            //----------------------------------------------------------------------//
+            System.out.println("\n"); // For Spacing purpose
+            //----------------------------------------------------------------------//
+        }
+        
+        catch(FileNotFoundException ex) 
+        {
+            System.out.println( "Unable to open file" );                
+        }
+            
+        finally
+        {
+            //Details to be stored into a file. file is been dcreated and word student is kept in it.
+            keyboard.close();
+            writer.close();
+            System.out.print("\n***File written and updated***\n\n"); // to identiify adn inform user that the text file is been updated with new content
+            return;
+        }
+
+        
+     }
+     
+    
+
+    //================================================================================//    
+    //Void metod //  final overall mark
+    //calculate 3 assignments (300 marks) + practical work (10 marks) + Final Exam (100 Marks) = 410marks
+    //Statues -> Working  
+    //================================================================================//
+    void overallFinalMark ()  // Cannot be void as need to return value
+    {
+        overallfinalMark = assignment1 + assignment2 + assignment3 + practicalMark + finalExamMark; 
+     
+        PrintWriter writer = null;
+        Scanner keyboard = new Scanner(System.in);
+        try
+        {
+            writer = new PrintWriter(new FileOutputStream("StudentData.txt", true)); // will check if the file exsist first 
+            writer.println(overallfinalMark);
+        }
+        catch(FileNotFoundException ex) 
+        {
+            System.out.println( "Unable to open file" );                
+        }
+            
+        finally
+        {
+            //Details to be stored into a file. file is been dcreated and word student is kept in it.
+            keyboard.close();
+            writer.close();
+            System.out.print("\n***File written and updated***\n\n"); // to identiify adn inform user that the text file is been updated with new content
+            return;
+        }
+     
+     }
+     
+    //================================================================================//
+    //Void Method // the final grade
+    //The three assignments together count for a total of 45% (15% each) of the final grade, the 
+    // practical work is worth 10%, and the final exam
+    // is worth 45% of the final grade.
+    //Statues -> Working  
+    //================================================================================//
+     void finalGrade()
+     {
+        int Gradement1 = assignment1 * 15/100;
+        int Gradement2 = assignment2 * 15/100;
+        int Gradement3 = assignment3 * 15/100;
+        assignmentGrade = (Gradement1 + Gradement2 + Gradement3);
+        practicalGrade = practicalMark * 10/100; // Weekly practical grade
+        finalExamGrade = finalExamMark * 45/100; // Final Examiniation grade
+         
+        gradeAvg = assignmentGrade + practicalGrade + finalExamGrade; 
+        String Grade;
+        System.out.print("The student Grade is: ");
+        
+        //If the average of marks is >= 80 then prints Grade ‘A’
+        if(gradeAvg>=80)
+        {
+            System.out.print("HD");
+            Grade = "HD";
+        }
+        
+        //If the average is <70 and >=60 then prints Grade ‘B’
+        else if(gradeAvg>=70 && gradeAvg<80)
+        {
+           System.out.print("D");
+           Grade = "D";
+        } 
+        
+        //If the average is <60 and <70 then prints Grade ‘C’
+        else if(gradeAvg>=60 && gradeAvg<70)
+        {
+            System.out.print("C");
+            Grade = "C";
+        }
+        
+        //If the average is <50 and <60 then prints Grade ‘C’
+        else if(gradeAvg>=50 && gradeAvg<60)
+        {
+            System.out.print("P");
+            Grade = "P";
+        }
+        
+        //else prints Grade ‘D’
+        else
+        {
+            System.out.print("N");
+            Grade = "N";
+        }
+        
+        
+       //To print to file
+        PrintWriter writer = null;
+        Scanner keyboard = new Scanner(System.in);
+        try
+        {
+            writer = new PrintWriter(new FileOutputStream("StudentData.txt", true)); // will check if the file exsist first 
+            writer.println(gradeAvg);
+            writer.println(Grade);
+            writer.println("\n"); // for spacing between student details
+        }
+        catch(FileNotFoundException ex) 
+        {
+            System.out.println( "Unable to open file" );                
+        }
+            
+        finally
+        {
+            //Details to be stored into a file. file is been dcreated and word student is kept in it.
+            keyboard.close();
+            writer.close();
+            System.out.print("\n***File written and updated***\n\n"); // to identiify adn inform user that the text file is been updated with new content
+            return;
+        }
+        
+        
+     }
+
+
+    //================================================================================//     
+     //Boolean method // which compares two student objects and returns trueif they have the same student names,the same date of birth and the same student number
+    //================================================================================//
+
+     public void  IdentityCrisis (String firstName, String lastName,int studentID, int studentDOB )
+     {
+        if (firstName== lastName ) 
+        { 
+            System.out.println("ERROR!: Identical names!"); 
+        } 
+        return;   
+     }
+     
+
+    //Method to sort the array into ascending order of students’ numbers (IDs)
+     public void sortstudentID()
+     {
+         
+     }
+     
+     
+     //Method to sort the array of student objects into ascending (alphabetical/dictionary) order of students’ surnames using a different sorting algorithm to the one used in above
+     public void sortstudentSurname()
+     {
+         
+     }
+     
+     //Method to find students with the highest overall mark and the second highest overall mark in the array
+     public void HighStudents()
+     {
+         
+     }
+     
+    //================================================================================// 
+    //Print Student overll mark and details                                           //
+    //Statues -> Working                                                              //
+    //================================================================================//      
+    public void printstudentDetails()
+    {
+        System.out.println("--------------------------------------------------------");         
+        System.out.println("Student ID: " + studentID); //Student ID:        
+        System.out.println("Title of the Student: " + studentTitle); //Title of the student (eg, Mr, Miss, Ms, Mrs etc)
+        System.out.println("First Name: " + firstName); //First Name / Given Name
+        System.out.println("Last Name: " + lastName); //Last Name / Family Name /Surname
+        System.out.println("Date of Birth: " + studentDOB); //Date of Birth (DD/MM/YYYY)
+
+        System.out.println(""); // For Spacing purpose
+        
+        //Print of the assignment marks
+        System.out.println("********Assignments********"); // For Spacing purpose
+        System.out.println("Assignment 1 Marks : " + assignment1);
+        System.out.println("Assignment 2 Marks : " + assignment2);
+        System.out.println("Assignment 3 Marks : " + assignment3);
+        
+        System.out.println(""); // For Spacing purpose
+        
+        // Print of results of the Weekly Practical Work
+        System.out.println("********Weekly practical work**********");
+        System.out.println("Weekly practical work : " + practicalMark);
+
+        // Print of results of the Final Examination Marks
+        System.out.println("Final Examination Mark : " + finalExamMark);
+        
+        System.out.println(""); // For Spacing purpose
+                
+        System.out.println("Overall Marks : " + overallfinalMark);
+        System.out.println("Final Grade : " + gradeAvg);
+        
+        finalGrade();
+        
+        System.out.println("\n----------------------End-------------------------------\n"); //Ending with  Spacing purpose
+        
+        ICT167_Assignment_2.MainMenu(); // return the main menu
+        
+     }
+     
+     
+}
+
+
+ 
+ 
