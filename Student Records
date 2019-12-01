@@ -1,0 +1,501 @@
+/*
+Title : ICT 167 Principle of Computer Science Assignment 2
+Author : Ajay Varghese
+Data : 25 November 2018
+File Name : ICT167_Assignment_2.Java
+Purpose : To create a java program that records student details including name and marks.
+Afterwhich display the results base on the query.
+
+
+
+*/
+
+package ict167_assignment_2;
+
+import static ict167_assignment_2.ICT167_Assignment_2.main;
+import java.util.Scanner;
+import java.io.File; // to open the file
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class ICT167_Assignment_2 
+{
+   
+    public static void main(String[] args) 
+    {
+        MainMenu();  
+    }
+        
+    
+ //================================================================================// 
+ //Main menu                                                                       //
+ //Statues -> Working                                                              //
+ //================================================================================// 
+   public static void MainMenu()     
+   {
+       
+    //Provide user with options-------------------------------------------------//
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("+   Enter an option                                     +");
+        System.out.println("+   Option A -> Credit                                  +"); // Credit
+        System.out.println("+   Option B -> Enter a Student Detail                  +"); // Enter the student details // go to 'student' class
+        System.out.println("+   Option C -> Details of all the students             +"); // Display the the students' profile details except overall marks and grade
+        System.out.println("+   Option D -> Average of overall mark                 +"); // Display the average of overall of all the students
+        System.out.println("+   Option E -> Overall marks                           +"); // Display how many above and how many below the average overall mark
+        System.out.println("+   Option F -> Distribution of grades                  +"); // Display the distribution of grades
+        System.out.println("+   Option G -> Enter Student ID                        +"); // Display his/her details by entering the student ID
+        System.out.println("+   Option H -> Enter Student Name                      +"); // Display his/her details by entering the student name 
+        System.out.println("+   Option I -> 1st & 2nd highest overall marks         +"); // Display the first and second overall marks
+        System.out.println("+   Option J -> Show the names of all students          +"); // Display the names of all the students
+        System.out.println("+   Option K -> Names of all students using surname     +"); // Display all the student details
+        System.out.println("+   Option Q -> Exit                                    +");
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("");
+        
+        Scanner reader = new Scanner(System.in);
+        String userInput ;
+        if(reader.hasNextLine())
+        {
+            userInput = reader.nextLine();
+            char option = userInput.toLowerCase().charAt(0); //to change to lower case
+
+        
+            while (option !='q') // exits the program
+            {
+                    // displays the Murdoch student details
+                if (option == 'a')//--------------------------------------------//>>>Working
+                    studentInfo();
+                else if (option == 'b')//---------------------------------------//>>>Working
+                    // link to student.java
+                    Student.EnterDetails();
+                else if (option == 'c')//----------------------------------------//>>>Working
+                    // Display the students' profile details except overall marks and grade
+                    {
+                        System.out.println("Details of all the students in order of");
+                        printstudentProfile();
+                    } 
+                else if (option == 'd') 
+                    // Display the average of overall of all the students
+                    System.out.println("Average of overall mark"); 
+                else if (option == 'e') 
+                    // display how many abover and how many below the average overall mark
+                    System.out.println("Overall marks"); 
+                else if (option == 'f') 
+                    // Display the distribution of grades
+                    System.out.println("Distribution of grades"); 
+                else if (option == 'g')//---------------------------------------//>>>Working somewhat
+                {
+                    // Enter the student ID to display his/her details
+                    System.out.println("Enter Student ID"); 
+                    searchstudentIDProfile() ;
+                }
+                else if (option == 'h') //---------------------------------------//>>>Working somewhat
+                {
+                    // Enter the student name to display his/her details
+                    System.out.println("Enter Student Name"); 
+                    searchstudentName(); 
+                }
+                else if (option == 'i') 
+                    // Display the first and second overall marks
+                    System.out.println("1st & 2nd highest overall marks"); 
+                else if (option == 'j') //---------------------------------------//>>>Working somewhat
+                {
+                    // Display the names of all the students
+                    System.out.println("Display the names of all students");
+                    searchAllstudentName();
+                }        
+                else if (option == 'k') //---------------------------------------//>>>Working somewhat
+                {
+                    // Enter the student name to display his/her details
+                    System.out.println("Display names of all students using surname"); 
+                    searchAllstudentSurname();
+                }
+                else
+                    System.out.println("Invalid option");
+
+               System.out.println("To continue enter a option:");
+               break; //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  used temp to write the data into the txt file
+               //userInput = reader.nextLine();
+               //option = userInput.toLowerCase().charAt(0);
+
+            } //closing bracket of the options
+            System.out.println("End of program"); //ends the loop of options
+            System.exit(0);//This just terminates the program  
+            
+            
+        }// close bracket for reader.nextline
+       
+       //main(null); // brings back to the top and write the file into the txt document
+  
+   } // close bracket for method
+   
+ //================================================================================// 
+ //Option A - Credit of the Student Details                                       //
+ //Statues -> Working                                                              //
+ //================================================================================// 
+    public static void studentInfo() 
+    {
+        System.out.println("==================================================");
+        System.out.println("||     Student Name: Ajay Varghese              ||");
+        System.out.println("||     Kaplan ID : CT0291030                    ||");
+        System.out.println("||     Mordoch ID: 33507753                     ||");
+        System.out.println("||     Mode of Enrollment: External, Part-time  ||");
+        System.out.println("||     ICT167 B                                 ||");
+        System.out.println("||     Tutor's Name: Chong Siew Cheong          ||");
+        System.out.println("==================================================\n");
+        
+        main(null);
+    }
+
+ //================================================================================// 
+// Option C - Display the students' profile details except overall marks and grade      //
+ //Statues -> Working                                                              //
+ //================================================================================// 
+  public static void printstudentProfile() 
+  {
+    File infile = new File("StudentData.txt");
+    Scanner inputStream = null;
+    System.out.println("Student ID, Name, Date of Birth, Assignment marks,");
+    System.out.println("Practical work, Final Exam marks, overall marks & Grade");
+    System.out.println("---------------------------------------------------------");
+    
+    try
+    {
+        inputStream = new Scanner(infile); //this is to read from the file
+    }
+    catch(FileNotFoundException ex)
+    {
+        System.out.println(ex);
+    }
+    while (inputStream.hasNextLine())
+    {
+        String line = inputStream.nextLine();
+        System.out.println(line);
+    }
+    
+    //finally
+    {
+        if (inputStream != null)
+            inputStream.close();
+        System.out.println("-------------------------END-----------------------------");
+    } 
+    
+    main(null);
+  }
+    
+
+    
+ //================================================================================// 
+//Option G -> Search via Student ID                                              //
+ //Statues -> Not 100 % working yet                                            //
+ //================================================================================// 
+public static void searchstudentIDProfile() 
+  {
+    
+    Scanner inputStream = null;
+    //instructions on what is to be done
+    System.out.println("**********************************************"); // For Spacing purpose
+
+    try
+    {
+        Scanner txtscan = new Scanner(new File("StudentData.txt"));
+     
+        //instructions on what is to be done
+        System.out.println("**********************************************"); // For Spacing purpose
+        Scanner readerW = new Scanner(System.in);
+        String line = readerW.nextLine(); // user to key in the student detail
+       
+        while(txtscan.hasNextLine())
+        {
+            String str = txtscan.nextLine();
+            if(str.indexOf(line) != -1)
+            {
+                System.out.println("STUDENT ID FOUND");
+                System.out.println(str);
+                //Using loop to find the next 12 lines of the student details
+                for (int i = 0; i < 12; i++)
+                {
+                    txtscan.hasNextLine();
+                    System.out.println(txtscan);
+                }
+            }
+        }
+
+    }
+    catch(FileNotFoundException ex)
+    {
+        System.out.println(ex);
+    }   catch (IOException ex) {
+            Logger.getLogger(ICT167_Assignment_2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+   //finally
+    {
+        inputStream.close();
+        System.out.println("-------------------------END-----------------------------");
+    } 
+    
+    main(null);
+    
+    
+    
+    
+  }
+
+
+ //================================================================================// 
+//Option H -> Search via Student Name                                            //
+ //Statues -> Not 100 % working yet                                             //
+ //================================================================================// 
+public static void searchstudentName() 
+  {
+    
+    Scanner inputStream = null;
+    //instructions on what is to be done
+    System.out.println("**********************************************"); // For Spacing purpose
+
+    try
+    {
+        Scanner txtscan = new Scanner(new File("StudentData.txt"));
+     
+        //instructions on what is to be done
+        System.out.println("**********************************************"); // For Spacing purpose
+        Scanner readerW = new Scanner(System.in);
+        String line = readerW.nextLine(); // user to key in the student detail
+       
+        while(txtscan.hasNextLine())
+        {
+            String str = txtscan.nextLine();
+            if(str.indexOf(line) != -1)
+            {
+                System.out.println("EXISTS");
+                System.out.println(str);
+                //Using loop to find the next 12 lines of the student details
+                for (int i = 0; i < 12; i++)
+                {
+                    txtscan.hasNextLine();
+                    System.out.println(txtscan);
+                }
+            }
+        }
+         
+         
+    }
+    catch(FileNotFoundException ex)
+    {
+        System.out.println(ex);
+    }   catch (IOException ex) {
+            Logger.getLogger(ICT167_Assignment_2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+   //finally
+    {
+        
+            //readerW.close();
+         System.out.println("-------------------------END-----------------------------");
+    } 
+    
+    main(null);
+    
+    
+    
+    
+  }
+
+
+
+//================================================================================// 
+//Option I -> 1st & 2nd highest overall marks                                     //
+ //Statues -> Not 100 % working yet                                              //
+ //================================================================================// 
+    @SuppressWarnings("IndexOfReplaceableByContains") 
+    public static void highestStudentmarks() 
+  {
+    Scanner inputStream = null;
+    //instructions on what is to be done
+    System.out.println("**********************************************"); // For Spacing purpose
+    
+    try
+    {
+         Scanner txtscan = new Scanner(new File("StudentData.txt"));
+     
+        //instructions on what is to be done
+        System.out.println("**********************************************"); // For Spacing purpose
+        Scanner readerW = new Scanner(System.in);
+        String line = readerW.nextLine(); // user to key in the student detail
+       
+        while(txtscan.hasNextLine())
+        {
+            String str = txtscan.nextLine();
+            if(str.indexOf(line) != -1)
+            {
+                System.out.println("EXISTS");
+                System.out.println(str);
+                //Using loop to find the next 12 lines of the student details
+                for (int i = 0; i < 12; i++)
+                {
+                    txtscan.hasNextLine();
+                    System.out.println(txtscan);
+                }
+            }
+        }
+         
+         
+         
+         
+    }
+    catch(FileNotFoundException ex)
+    {
+        System.out.println(ex);
+    }   catch (IOException ex) {
+            Logger.getLogger(ICT167_Assignment_2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+   //finally
+    {
+        if (inputStream != null)
+            inputStream.close();
+         System.out.println("-------------------------END-----------------------------");
+    } 
+    
+    main(null);
+    
+    
+    
+    
+  }
+
+
+ //================================================================================// 
+//Option J -> Search all Student names and print                                     //
+ //Statues -> Not 100 % working yet                                                //
+ //================================================================================// 
+public static void searchAllstudentName() 
+  {
+
+    Scanner inputStream = null;
+    //instructions on what is to be done
+    System.out.println("**********************************************"); // For Spacing purpose
+    
+
+    try
+    {
+        Scanner txtscan = new Scanner(new File("StudentData.txt"));
+     
+        //instructions on what is to be done
+        System.out.println("**********************************************"); // For Spacing purpose
+        Scanner readerW = new Scanner(System.in);
+        String line = readerW.nextLine(); // user to key in the student detail
+       
+        while(txtscan.hasNextLine())
+        {
+            String str = txtscan.nextLine();
+            if(str.indexOf(line) != -1)
+            {
+                System.out.println("EXISTS");
+                System.out.println(str);
+                //Using loop to find the next 12 lines of the student details
+                for (int i = 0; i < 12; i++)
+                {
+                    txtscan.hasNextLine();
+                    System.out.println(txtscan);
+                }
+            }
+        }
+         
+         
+         
+    }
+    catch(FileNotFoundException ex)
+    {
+        System.out.println(ex);
+    }   catch (IOException ex) {
+            Logger.getLogger(ICT167_Assignment_2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+   //finally
+    {
+        if (inputStream != null)
+            inputStream.close();
+         System.out.println("-------------------------END-----------------------------");
+    } 
+    
+    main(null);
+    
+    
+    
+    
+  }
+
+
+ //================================================================================// 
+//Option k -> Search All Student SurName and print                                   //
+ //Statues -> Not 100 % working yet                                                //
+ //================================================================================// 
+public static void searchAllstudentSurname() 
+  {
+    
+     Scanner inputStream = null;
+    //instructions on what is to be done
+    System.out.println("**********************************************"); // For Spacing purpose
+
+
+    try
+    {
+        Scanner txtscan = new Scanner(new File("StudentData.txt"));
+     
+        //instructions on what is to be done
+        System.out.println("**********************************************"); // For Spacing purpose
+        Scanner readerW = new Scanner(System.in);
+        String line = readerW.nextLine(); // user to key in the student detail
+       
+        while(txtscan.hasNextLine())
+        {
+            String str = txtscan.nextLine();
+            if(str.indexOf(line) != -1)
+            {
+                System.out.println("EXISTS");
+                System.out.println(str);
+                //Using loop to find the next 12 lines of the student details
+                for (int i = 0; i < 12; i++)
+                {
+                    txtscan.hasNextLine();
+                    System.out.println(txtscan);
+                }
+            }
+        }
+         
+         
+         
+    }
+    catch(FileNotFoundException ex)
+    {
+        System.out.println(ex);
+    }   catch (IOException ex) {
+            Logger.getLogger(ICT167_Assignment_2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+   //finally
+    {
+        if (inputStream != null)
+            inputStream.close();
+         System.out.println("-------------------------END-----------------------------");
+    } 
+    
+    main(null);
+    
+    
+    
+    
+  }
+
+ //================================================================================// 
+ //Student Details                                                                 //
+ //Statues -> Working                                                              //
+ //================================================================================//     
+    
+    
+    
+}
