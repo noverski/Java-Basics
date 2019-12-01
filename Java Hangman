@@ -1,0 +1,126 @@
+/***********************************************/
+/*Author : Ajay varghese			/*
+/*Date: 15th August 2018			/*
+/*Purpose: Assignment Question 3		/*
+/***********************************************/
+
+#include <stdio.h>
+// get function from the libary
+
+int main()
+{
+    /*-----------------------------------------------*/
+    /*declaration and initialise the working storage*/
+    /*-----------------------------------------------*/
+
+    float change = 0 ; //shows the value in the input in cents
+    int remaindollar = 0; // value of the remaining dollars
+    int remaincent = 0; //value of remaining cents
+    int balance = 0; //remainder values
+
+    int dollarhundred = 0; //value of hundred dollar
+    int dollarfifty = 0;//value of hundred dollar
+    int dollartwenty = 0;//value of hundred dollar
+    int dollarten = 0 ;//value of hundred dollar
+    int dollarfive = 0;//value of hundred dollar
+    int dollartwo = 0;//value of hundred dollar
+    int dollarone = 0;//value of hundred dollar
+
+    int centfifty = 0; //50 cents
+    int centtwenty = 0; //20 cents
+    int centten = 0; //10 cents
+    int centfive = 0; //5 cents
+    int centone = 0; // 1 cent
+        
+
+    /*-----------------------------------------------*/
+    //Initial Heading
+    printf("Please enter the value for change.\n");
+    printf("\n"); 
+
+    //=============================================================
+    /*-----------------------------------------------*/
+    /*Bank teller key in the value*/
+    /*-----------------------------------------------*/
+    printf("Amount :");
+    scanf("%f",&change);
+    
+    //============================================================
+    /*-----------------------------------------------*/
+    /*systems to seperate the dollars and cents */
+    /*-----------------------------------------------*/  
+    remaindollar=(int)change ;//changing float value into interger value 
+    remaincent=(int)(((change-remaindollar)*100)+0.5) ;//
+    
+    printf("Dollar Amount : %d\n",remaindollar) ;//
+    printf("Cents Amount : %d\n",remaincent) ;//
+    printf("\n") ;
+    
+    //=============================================================
+    /*-----------------------------------------------*/
+    /*systems to break down down dollar  into cents tell its exact change required  */
+    /*-----------------------------------------------*/
+    printf("Change to give for Dollar\n",change);
+
+    dollarhundred = remaindollar/100; //indicates the numerical qty of 50 cents required
+        printf("%d X $100  = %d\n", dollarhundred,(dollarhundred*100));//print value
+    balance = remaindollar%100; //balance value from 50 cent change
+
+    dollarfifty = balance/50; //indicates the numerical qty of 20 cents required
+        printf("%d X $50  = %d\n", dollarfifty,(dollarfifty*50));//print value
+    balance = balance%50;  //balance value from 20 cent change
+
+    dollartwenty = balance/20; //indicates the numerical qty of 20 cents required
+        printf("%d X $20  = %d\n", dollartwenty,(dollartwenty*20));//print value
+    balance = balance%20;  //balance value from 20 cent change
+
+    dollarten = balance/10; //indicates the numerical qty of 10 cents required
+        printf("%d X $10  = %d\n", dollarten,(dollarten*10));//print value
+    balance = balance%10;  //balance value from 10 cent change
+
+    dollarfive=balance/5; //indicates the numerical qty of 5 cents required
+        printf("%d X $5 = %d\n", dollarfive,(dollarfive*5));//print value
+    balance = balance%5;  //balance value from 5 cent change
+
+    dollartwo=balance/2; //indicates the numerical qty of 5 cents required
+        printf("%d X $2 = %d\n", dollartwo,(dollartwo*2));//print value
+    balance = balance%2;  //balance value from 5 cent change
+    
+    dollarone=balance/1; //indicates the numerical qty of 5 cents required
+        printf("%d X $1 = %d\n", dollarone,(dollarone*1));//print value
+    balance = balance%1;  //balance value from 5 cent change
+ 
+    //=============================================================
+    /*-----------------------------------------------*/
+    /*systems to break cents tell its exact change required  */
+    /*-----------------------------------------------*/
+
+    printf("\nChange to give for Cents\n",change);
+
+    centfifty = remaincent/50; //indicates the numerical qty of 50 cents required
+        printf("%d X 50 cents = %d\n", centfifty,(centfifty*50));//print value
+    balance = remaincent%50; //balance value from 50 cent change
+
+    centtwenty = balance/20; //indicates the numerical qty of 20 cents required
+        printf("%d X 20 cents = %d\n", centtwenty,(centtwenty*20));//print value
+    balance = balance%20;  //balance value from 20 cent change
+
+    centten = balance/10; //indicates the numerical qty of 10 cents required
+        printf("%d X 10 cents = %d\n", centten,(centten*10));//print value
+    balance = balance%10;  //balance value from 10 cent change
+
+    centfive=balance/5; //indicates the numerical qty of 5 cents required
+        printf("%d X 5 cents = %d\n", centfive,(centfive*5));//print value
+    balance = balance%5;  //balance value from 5 cent change
+
+
+    //=============================================================
+    /*-----------------------------------------------*/
+    /*systems to print end program statement        */
+    /*-----------------------------------------------*/
+    printf("\n<End Program>"); 
+
+
+return 0;
+}
+
